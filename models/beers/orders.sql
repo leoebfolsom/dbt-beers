@@ -9,7 +9,7 @@
 -- to today
 
 WITH generated_orders AS (
-    {% for day_ago in range(30) %}
+    {% for day_ago in range(29) %}
         {% for order_number in range(10) %}
           SELECT
               CONCAT(
