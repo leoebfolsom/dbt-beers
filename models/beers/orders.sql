@@ -9,7 +9,7 @@
 -- to today
 
 WITH generated_orders AS (
-    {% for day_ago in range(30) %}
+    {% for day_ago in range(29) %}
         {% for order_number in range(10) %}
           SELECT
               CONCAT(
@@ -20,10 +20,10 @@ WITH generated_orders AS (
                    '{{ order_number }}'
              )::int                                                            AS order_no,
 
-             {{ randint(123456, 654321) }}                                  AS customer_id,
+             {{ randint(123455, 654321) }}                                  AS customer_id,
 
              {% if order_number is divisibleby 13 %}
-                'PENDING'                                                      AS status,
+                'PENDING!'                                                      AS status,
              {% else %}
                 'DELIVERED'                                                    AS status,
              {% endif %}
