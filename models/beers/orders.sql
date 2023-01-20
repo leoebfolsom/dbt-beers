@@ -43,6 +43,7 @@ WITH generated_orders AS (
 
 SELECT *
 FROM generated_orders
+LIMIT 10
 
 {% if is_incremental() %}
     WHERE created_at::date > (SELECT MAX(created_at)::date FROM {{ this }})
