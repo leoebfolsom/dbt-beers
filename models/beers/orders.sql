@@ -20,8 +20,6 @@ WITH generated_orders AS (
                    '{{ order_number }}'
              )::int                                                            AS order_no,
 
-             {{ randint(123456, 654321) }}                                  AS customer_id,
-
              {% if order_number is divisibleby 13 %}
                 'PENDING'                                                      AS status,
              {% else %}
