@@ -20,7 +20,7 @@ WITH generated_orders AS (
                    '{{ order_number }}'
              )::int                                                            AS order_no,
 
-             {{ randint(123456, 654321) }}                                  AS customer_id,
+{{ randint(123456, 654321) }} AS customer_id,
 
              {% if order_number is divisibleby 13 %}
                 'PENDING'                                                       AS status,
@@ -29,6 +29,7 @@ WITH generated_orders AS (
              {% endif %}
              DATEADD(Day, -1 * {{ day_ago }}, CURRENT_DATE)                    AS created_at,
              current_timestamp                                                  AS changed_at
+
 
           {% if not loop.last %}
             UNION ALL
