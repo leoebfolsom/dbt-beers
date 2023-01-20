@@ -23,15 +23,13 @@ WITH generated_orders AS (
 {{ randint(123456, 654321) }} AS customer_id,
 
              {% if order_number is divisibleby 13 %}
-                'PENDING'                                                      AS status,
+                'PENDING'                                                       AS status,
              {% else %}
                 'DELIVERED'                                                    AS status,
              {% endif %}
              DATEADD(Day, -1 * {{ day_ago }}, CURRENT_DATE)                    AS created_at,
-             
-             1 as pretend_column,
-             
-             current_timestamp                                                 AS changed_at
+             current_timestamp                                                  AS changed_at
+
 
           {% if not loop.last %}
             UNION ALL
@@ -46,6 +44,7 @@ WITH generated_orders AS (
 
 SELECT *
 FROM generated_orders
+LIMIT 10
 
 {% if is_incremental() %}
     WHERE created_at::date > (SELECT MAX(created_at)::date FROM {{ this }})
